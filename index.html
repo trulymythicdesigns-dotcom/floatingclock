@@ -15,8 +15,8 @@ html, body {
     margin:0;
     padding:0;
     
-    width:100%;
-    height:auto;
+    width:max-content;
+    height:max-content;
 
     min-height:0;
     
@@ -36,6 +36,7 @@ body {
 
 .card {
 
+    margin:0;
     width:290px;
 
     padding:24px 28px;
@@ -332,7 +333,10 @@ select {
 
 }
 
-<style>
+* {
+    scrollbar-width:none;
+}
+
 ::-webkit-scrollbar {
     display:none;
 }
@@ -634,6 +638,12 @@ updateClock();
 
 setInterval(updateClock,1000);
 
+    
+window.addEventListener("load", () => {
+
+    document.body.style.height =
+    document.querySelector(".card").offsetHeight + "px";
+});
 
 </script>
 
