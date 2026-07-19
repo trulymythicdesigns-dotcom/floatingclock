@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Minimal Flip Clock</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+
+}
+
+
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Inter, sans-serif;
+
+}
+
+
+.clock-container {
+
+    text-align: center;
+
+}
+
+
+/* CLOCK */
+
+.clock {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+}
+
+
+.flip {
+
+    width: 48px;
+
+    height: 60px;
+
+    background: #E9E2D6;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 38px;
+
+    color: #454540;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+
+}
+
+
+.flip::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #D0C7B8;
+
+}
+
+
+
+.flip.animate {
+
+    animation: flipAnimation .35s ease;
+
+}
+
+
+
+@keyframes flipAnimation {
+
+    0% {
+
+        transform: rotateX(0deg);
+
+    }
+
+
+    50% {
+
+        transform: rotateX(-90deg);
+
+    }
+
+
+    100% {
+
+        transform: rotateX(0deg);
+
+    }
+
+}
+
+
+
+.colon {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 36px;
+
+    color: #92A58A;
+
+}
+
+
+.ampm {
+
+    margin-left: 8px;
+
+    font-size: 14px;
+
+    color: #73846D;
+
+    font-weight: 500;
+
+}
+
+
+/* DATE */
+
+.date {
+
+    margin-top: 18px;
+
+    color: #7D786F;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+.day {
+
+    color: #64735F;
+
+    font-weight: 500;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="clock-container">
+
+
+<div class="clock">
+
+
+<div class="flip" id="h1">0</div>
+
+<div class="flip" id="h2">0</div>
+
+
+<div class="colon">:</div>
+
+
+<div class="flip" id="m1">0</div>
+
+<div class="flip" id="m2">0</div>
+
+
+<div class="ampm" id="ampm"></div>
+
+
+</div>
+
+
+
+<div class="date">
+
+<div class="day" id="day"></div>
+
+<div id="date"></div>
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+function updateClock() {
+
+
+    const now = new Date();
+
+
+    let hours = now.getHours();
+
+    let minutes = now.getMinutes();
+
+
+    let ampm = hours >= 12 ? "PM" : "AM";
+
+
+    hours = hours % 12 || 12;
+
+
+    let time = 
+
+        String(hours).padStart(2,"0") +
+
+        String(minutes).padStart(2,"0");
+
+
+
+    const boxes = ["h1","h2","m1","m2"];
+
+
+
+    boxes.forEach((id,index)=>{
+
+
+        const element = document.getElementById(id);
+
+
+        if(element.textContent !== time[index]) {
+
+
+            element.classList.remove("animate");
+
+
+            void element.offsetWidth;
+
+
+            element.classList.add("animate");
+
+
+            element.textContent = time[index];
+
+
+        }
+
+
+    });
+
+
+
+    document.getElementById("ampm").textContent = ampm;
+
+
+
+    document.getElementById("day").textContent = 
+
+        now.toLocaleDateString([], {
+
+            weekday:"long"
+
+        });
+
+
+
+    document.getElementById("date").textContent =
+
+        now.toLocaleDateString([], {
+
+            month:"long",
+
+            day:"numeric",
+
+            year:"numeric"
+
+        });
+
+
+
+}
+
+
+
+updateClock();
+
+
+setInterval(updateClock,1000);
+
+
+
+</script>
+
+
+</body>
+
+</html>
