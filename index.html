@@ -1,163 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flip Clock Widget</title>
+<title>Global Flip Clock</title>
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-
 <style>
 
-:root {
-
-    --card-light: #FCFAF5;
-    --flip-light: #E9E2D6;
-    --text-light: #454540;
-    --muted-light: #7D786F;
-    --accent-light: #93A68B;
-    --border-light: #DDD5C8;
-
-
-    --card-dark: #252925;
-    --flip-dark: #363C36;
-    --text-dark: #F3EEE5;
-    --muted-dark: #B8B5AC;
-    --accent-dark: #A8B8A5;
-    --border-dark: #414840;
-
-}
-
-
-/* REMOVE WHITE BACKGROUND */
-
-html,
-body {
-
+html, body {
     margin:0;
-
     padding:0;
-
-    width:100%;
-
-    height:100%;
-
-    background:transparent;
-
+    background:transparent !important;
+    overflow:hidden;
+    font-family:Inter,sans-serif;
 }
-
 
 body {
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
-    font-family:Inter,sans-serif;
-
 }
-
 
 
 /* CARD */
 
+.card {
 
-.clock-card {
+    width:290px;
 
-    width:280px;
-
-    padding:32px;
+    padding:28px;
 
     border-radius:28px;
 
+    background:#FCFAF5;
+
+    border:1px solid #DDD5C8;
+
     text-align:center;
-
-    background:var(--card-light);
-
-    border:1px solid var(--border-light);
-
-    box-shadow:
-    0 12px 30px rgba(0,0,0,.08);
-
-    transition:.4s ease;
 
     position:relative;
 
-}
+    color:#454540;
 
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 
-
-/* DARK MODE */
-
-
-.clock-card.dark {
-
-    background:var(--card-dark);
-
-    border-color:var(--border-dark);
+    transition:.3s;
 
 }
 
 
+.card.dark {
 
-.clock-card.dark .flip {
+    background:#252925;
 
-    background:var(--flip-dark);
+    border-color:#414840;
 
-    color:var(--text-dark);
+    color:#F5F1E8;
 
 }
 
 
 
-.clock-card.dark .colon {
+/* BUTTONS */
 
-    color:var(--accent-dark);
-
-}
-
-
-
-.clock-card.dark .date {
-
-    color:var(--muted-dark);
-
-}
-
-
-
-.clock-card.dark .day {
-
-    color:var(--accent-dark);
-
-}
-
-
-
-.clock-card.dark .toggle {
-
-    color:var(--text-dark);
-
-}
-
-
-
-/* TOGGLE */
-
-
-.toggle {
+.top-buttons {
 
     position:absolute;
 
     top:12px;
 
-    right:15px;
+    right:14px;
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+
+button {
 
     border:none;
 
@@ -165,9 +90,7 @@ body {
 
     cursor:pointer;
 
-    font-size:16px;
-
-    color:var(--text-light);
+    font-size:15px;
 
 }
 
@@ -175,8 +98,9 @@ body {
 
 /* CLOCK */
 
-
 .clock {
+
+    margin-top:15px;
 
     display:flex;
 
@@ -186,123 +110,102 @@ body {
 
     gap:5px;
 
-    margin-top:10px;
-
 }
-
 
 
 .flip {
 
-    width:48px;
+    width:46px;
 
-    height:62px;
+    height:60px;
 
     border-radius:10px;
 
-    background:var(--flip-light);
+    background:#E9E2D6;
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
 
-    position:relative;
-
-    overflow:hidden;
+    align-items:center;
 
     font-family:"DM Serif Display",serif;
 
     font-size:38px;
 
-    color:var(--text-light);
+    position:relative;
 
-    box-shadow:
-
-    inset 0 -1px rgba(0,0,0,.08);
+    overflow:hidden;
 
 }
 
 
+.dark .flip {
 
-.flip::after {
+    background:#363C36;
+
+    color:#F5F1E8;
+
+}
+
+
+.flip:after {
 
     content:"";
 
     position:absolute;
 
-    top:50%;
-
-    left:0;
+    width:100%;
 
     height:1px;
 
-    width:100%;
+    background:rgba(0,0,0,.15);
 
-    background:rgba(0,0,0,.12);
+    top:50%;
 
 }
-
 
 
 .flip.animate {
 
-    animation:flip .35s ease;
+    animation:flip .35s;
 
 }
-
 
 
 @keyframes flip {
 
-
-0% {
-
-transform:rotateX(0deg);
-
+0%{
+transform:rotateX(0);
 }
 
-
-50% {
-
+50%{
 transform:rotateX(-90deg);
-
 }
 
-
-100% {
-
-transform:rotateX(0deg);
-
+100%{
+transform:rotateX(0);
 }
 
-
 }
-
 
 
 .colon {
 
-    font-family:"DM Serif Display",serif;
+    font-size:32px;
 
-    font-size:34px;
-
-    color:var(--accent-light);
+    color:#93A68B;
 
 }
 
 
-
 .ampm {
 
-    font-size:13px;
+    margin-left:5px;
 
-    margin-left:6px;
+    font-size:12px;
 
-    color:var(--accent-light);
-
-    font-weight:500;
+    color:#93A68B;
 
 }
 
@@ -310,29 +213,118 @@ transform:rotateX(0deg);
 
 /* DATE */
 
-
 .date {
 
-    margin-top:22px;
-
-    color:var(--muted-light);
+    margin-top:18px;
 
     font-size:14px;
 
-    line-height:1.6;
+    color:#817B72;
 
 }
 
+
+.dark .date {
+
+    color:#B8B5AC;
+
+}
 
 
 .day {
 
-    font-weight:500;
+    color:#657565;
 
-    color:var(--accent-light);
+    font-weight:500;
 
 }
 
+
+.dark .day {
+
+    color:#A8B8A5;
+
+}
+
+
+
+/* LOCATION */
+
+.location {
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    color:#93A68B;
+
+}
+
+
+
+/* SETTINGS */
+
+.settings {
+
+    display:none;
+
+    margin-top:20px;
+
+    text-align:left;
+
+    font-size:13px;
+
+}
+
+
+.settings.show {
+
+    display:block;
+
+}
+
+
+select {
+
+    width:100%;
+
+    padding:8px;
+
+    margin:6px 0 12px;
+
+    border-radius:10px;
+
+    border:1px solid #D8D0C4;
+
+    background:#F3EEE5;
+
+}
+
+
+.dark select {
+
+    background:#363C36;
+
+    color:white;
+
+    border-color:#555;
+
+}
+
+
+.save {
+
+    width:100%;
+
+    padding:9px;
+
+    border-radius:20px;
+
+    background:#93A68B;
+
+    color:white;
+
+}
 
 
 </style>
@@ -340,37 +332,34 @@ transform:rotateX(0deg);
 </head>
 
 
-
 <body>
 
 
-<div class="clock-card" id="card">
+<div class="card" id="card">
 
 
-<button class="toggle" id="toggle">
-☾
-</button>
+<div class="top-buttons">
+
+<button id="settingsBtn">⚙</button>
+
+<button id="themeBtn">☾</button>
+
+</div>
+
 
 
 <div class="clock">
 
 
 <div class="flip" id="h1">0</div>
-
 <div class="flip" id="h2">0</div>
-
 
 <div class="colon">:</div>
 
-
 <div class="flip" id="m1">0</div>
-
 <div class="flip" id="m2">0</div>
 
-
-<div class="ampm" id="ampm">
-AM
-</div>
+<div class="ampm" id="ampm"></div>
 
 
 </div>
@@ -381,7 +370,79 @@ AM
 
 <div class="day" id="day"></div>
 
-<div id="fullDate"></div>
+<div id="date"></div>
+
+</div>
+
+
+
+<div class="location" id="location">
+
+</div>
+
+
+
+<div class="settings" id="settings">
+
+
+<label>Location</label>
+
+<select id="place">
+
+<option value="America/Toronto|Toronto, Canada">
+Toronto, Canada
+</option>
+
+<option value="America/New_York|New York, USA">
+New York, USA
+</option>
+
+<option value="America/Los_Angeles|Los Angeles, USA">
+Los Angeles, USA
+</option>
+
+<option value="Europe/London|London, UK">
+London, UK
+</option>
+
+<option value="Europe/Paris|Paris, France">
+Paris, France
+</option>
+
+<option value="Asia/Dubai|Dubai, UAE">
+Dubai, UAE
+</option>
+
+<option value="Asia/Tokyo|Tokyo, Japan">
+Tokyo, Japan
+</option>
+
+<option value="Australia/Sydney|Sydney, Australia">
+Sydney, Australia
+</option>
+
+</select>
+
+
+<label>Format</label>
+
+<select id="format">
+
+<option value="12">
+12 Hour
+</option>
+
+<option value="24">
+24 Hour
+</option>
+
+</select>
+
+
+<button class="save" id="save">
+Save
+</button>
+
 
 </div>
 
@@ -394,44 +455,56 @@ AM
 <script>
 
 
-const card = document.getElementById("card");
+const card=document.getElementById("card");
 
-const toggle = document.getElementById("toggle");
+const settings=document.getElementById("settings");
 
+let timezone="America/Toronto";
 
+let locationName="Toronto, Canada";
 
-// LOAD SAVED THEME
-
-
-if(localStorage.getItem("clock-theme") === "dark") {
-
-    card.classList.add("dark");
-
-    toggle.textContent="☀";
-
-}
+let format="12";
 
 
 
-// TOGGLE THEME
+document.getElementById("settingsBtn").onclick=()=>{
+
+settings.classList.toggle("show");
+
+};
 
 
-toggle.onclick=function(){
 
+document.getElementById("themeBtn").onclick=()=>{
 
 card.classList.toggle("dark");
 
+document.getElementById("themeBtn").textContent=
 
-let dark = card.classList.contains("dark");
+card.classList.contains("dark") ? "☀" : "☾";
+
+};
 
 
-toggle.textContent = dark ? "☀" : "☾";
+
+document.getElementById("save").onclick=()=>{
 
 
-localStorage.setItem(
-"clock-theme",
-dark ? "dark" : "light"
-);
+let value=document.getElementById("place").value.split("|");
+
+
+timezone=value[0];
+
+locationName=value[1];
+
+
+format=document.getElementById("format").value;
+
+
+settings.classList.remove("show");
+
+
+updateClock();
 
 
 };
@@ -439,63 +512,64 @@ dark ? "dark" : "light"
 
 
 
-
 function updateClock(){
 
 
-const now=new Date();
-
-
-let hours=now.getHours();
-
-let minutes=now.getMinutes();
-
-
-let ampm=hours>=12 ? "PM":"AM";
-
-
-hours=hours%12 || 12;
+let now=new Date();
 
 
 
-let time=
+let options={
 
-String(hours).padStart(2,"0")
+timeZone:timezone,
 
-+
+hour:"numeric",
 
-String(minutes).padStart(2,"0");
+minute:"numeric",
 
+hour12:format==="12"
 
-
-let ids=[
-"h1",
-"h2",
-"m1",
-"m2"
-];
+};
 
 
 
-ids.forEach((id,index)=>{
+let time=new Intl.DateTimeFormat([],options)
+.format(now);
 
 
-let element=document.getElementById(id);
+
+let parts=time.match(/\d+|\w+/g);
 
 
-if(element.textContent !== time[index]){
+
+let hour=parts[0];
+
+let minute=parts[1];
+
+let ampm=parts[2] || "";
 
 
-element.classList.remove("animate");
+
+let display=String(hour).padStart(2,"0")+String(minute).padStart(2,"0");
 
 
-void element.offsetWidth;
+
+["h1","h2","m1","m2"].forEach((id,i)=>{
 
 
-element.classList.add("animate");
+let box=document.getElementById(id);
 
 
-element.textContent=time[index];
+if(box.textContent!==display[i]){
+
+
+box.classList.remove("animate");
+
+void box.offsetWidth;
+
+box.classList.add("animate");
+
+box.textContent=display[i];
 
 
 }
@@ -511,17 +585,21 @@ document.getElementById("ampm").textContent=ampm;
 
 document.getElementById("day").textContent=
 
-now.toLocaleDateString([],{
+new Intl.DateTimeFormat([],{
+
+timeZone:timezone,
 
 weekday:"long"
 
-});
+}).format(now);
 
 
 
-document.getElementById("fullDate").textContent=
+document.getElementById("date").textContent=
 
-now.toLocaleDateString([],{
+new Intl.DateTimeFormat([],{
+
+timeZone:timezone,
 
 month:"long",
 
@@ -529,8 +607,13 @@ day:"numeric",
 
 year:"numeric"
 
-});
+}).format(now);
 
+
+
+document.getElementById("location").textContent=
+
+"📍 "+locationName;
 
 
 }
@@ -539,14 +622,11 @@ year:"numeric"
 
 updateClock();
 
-
 setInterval(updateClock,1000);
-
 
 
 </script>
 
 
 </body>
-
 </html>
