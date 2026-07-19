@@ -5,33 +5,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Notion Flip Clock</title>
+<title>Global Flip Clock</title>
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
-html {
+html, body {
+    margin:0;
+    padding:0;
     background:transparent !important;
+    overflow:hidden;
+    font-family:Inter,sans-serif;
 }
 
 body {
-
-    margin:0;
-
-    padding:0;
-
-    width:max-content;
-
-    height:max-content;
-
-    min-height:0;
-
-    background:transparent !important;
-
-    overflow:hidden;
-
-    font-family:Inter,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 
@@ -39,13 +30,11 @@ body {
 
 .card {
 
-    margin-top:0;
+    width:290px;
 
-    width:270px;
+    padding:28px;
 
-    padding:24px;
-
-    border-radius:26px;
+    border-radius:28px;
 
     background:#FCFAF5;
 
@@ -55,9 +44,11 @@ body {
 
     position:relative;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    color:#454540;
 
-    transition:.3s ease;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
 
 }
 
@@ -68,21 +59,21 @@ body {
 
     border-color:#414840;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    color:#F5F1E8;
 
 }
 
 
 
-/* CONTROLS LEFT */
+/* BUTTONS */
 
-.controls {
+.top-buttons {
 
     position:absolute;
 
     top:12px;
 
-    left:14px;
+    right:14px;
 
     display:flex;
 
@@ -109,7 +100,7 @@ button {
 
 .clock {
 
-    margin-top:18px;
+    margin-top:15px;
 
     display:flex;
 
@@ -124,11 +115,11 @@ button {
 
 .flip {
 
-    width:45px;
+    width:46px;
 
-    height:58px;
+    height:60px;
 
-    border-radius:9px;
+    border-radius:10px;
 
     background:#E9E2D6;
 
@@ -140,9 +131,7 @@ button {
 
     font-family:"DM Serif Display",serif;
 
-    font-size:36px;
-
-    color:#454540;
+    font-size:38px;
 
     position:relative;
 
@@ -170,35 +159,38 @@ button {
 
     height:1px;
 
-    top:50%;
-
     background:rgba(0,0,0,.15);
 
-}
+    top:50%;
 
+}
 
 
 .flip.animate {
 
-    animation:flip .35s ease;
+    animation:flip .35s;
 
 }
-
 
 
 @keyframes flip {
 
-    0% {transform:rotateX(0);}
-    50% {transform:rotateX(-90deg);}
-    100% {transform:rotateX(0);}
+0%{
+transform:rotateX(0);
+}
+
+50%{
+transform:rotateX(-90deg);
+}
+
+100%{
+transform:rotateX(0);
+}
 
 }
 
 
-
 .colon {
-
-    font-family:"DM Serif Display",serif;
 
     font-size:32px;
 
@@ -207,14 +199,13 @@ button {
 }
 
 
-
 .ampm {
+
+    margin-left:5px;
 
     font-size:12px;
 
     color:#93A68B;
-
-    margin-left:5px;
 
 }
 
@@ -224,16 +215,13 @@ button {
 
 .date {
 
-    margin-top:16px;
+    margin-top:18px;
+
+    font-size:14px;
 
     color:#817B72;
 
-    font-size:13px;
-
-    line-height:1.6;
-
 }
-
 
 
 .dark .date {
@@ -258,13 +246,86 @@ button {
 
 }
 
-* {
-    scrollbar-width:none;
+
+
+/* LOCATION */
+
+.location {
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    color:#93A68B;
+
 }
 
-::-webkit-scrollbar {
+
+
+/* SETTINGS */
+
+.settings {
+
     display:none;
+
+    margin-top:20px;
+
+    text-align:left;
+
+    font-size:13px;
+
 }
+
+
+.settings.show {
+
+    display:block;
+
+}
+
+
+select {
+
+    width:100%;
+
+    padding:8px;
+
+    margin:6px 0 12px;
+
+    border-radius:10px;
+
+    border:1px solid #D8D0C4;
+
+    background:#F3EEE5;
+
+}
+
+
+.dark select {
+
+    background:#363C36;
+
+    color:white;
+
+    border-color:#555;
+
+}
+
+
+.save {
+
+    width:100%;
+
+    padding:9px;
+
+    border-radius:20px;
+
+    background:#93A68B;
+
+    color:white;
+
+}
+
 
 </style>
 
@@ -277,11 +338,11 @@ button {
 <div class="card" id="card">
 
 
-<div class="controls">
+<div class="top-buttons">
 
-<button id="theme">☾</button>
+<button id="settingsBtn">⚙</button>
 
-<button id="settings">⚙</button>
+<button id="themeBtn">☾</button>
 
 </div>
 
@@ -291,13 +352,11 @@ button {
 
 
 <div class="flip" id="h1">0</div>
-
 <div class="flip" id="h2">0</div>
 
 <div class="colon">:</div>
 
 <div class="flip" id="m1">0</div>
-
 <div class="flip" id="m2">0</div>
 
 <div class="ampm" id="ampm"></div>
@@ -306,11 +365,84 @@ button {
 </div>
 
 
+
 <div class="date">
 
 <div class="day" id="day"></div>
 
 <div id="date"></div>
+
+</div>
+
+
+
+<div class="location" id="location">
+
+</div>
+
+
+
+<div class="settings" id="settings">
+
+
+<label>Location</label>
+
+<select id="place">
+
+<option value="America/Toronto|Toronto, Canada">
+Toronto, Canada
+</option>
+
+<option value="America/New_York|New York, USA">
+New York, USA
+</option>
+
+<option value="America/Los_Angeles|Los Angeles, USA">
+Los Angeles, USA
+</option>
+
+<option value="Europe/London|London, UK">
+London, UK
+</option>
+
+<option value="Europe/Paris|Paris, France">
+Paris, France
+</option>
+
+<option value="Asia/Dubai|Dubai, UAE">
+Dubai, UAE
+</option>
+
+<option value="Asia/Tokyo|Tokyo, Japan">
+Tokyo, Japan
+</option>
+
+<option value="Australia/Sydney|Sydney, Australia">
+Sydney, Australia
+</option>
+
+</select>
+
+
+<label>Format</label>
+
+<select id="format">
+
+<option value="12">
+12 Hour
+</option>
+
+<option value="24">
+24 Hour
+</option>
+
+</select>
+
+
+<button class="save" id="save">
+Save
+</button>
+
 
 </div>
 
@@ -325,43 +457,100 @@ button {
 
 const card=document.getElementById("card");
 
-const theme=document.getElementById("theme");
+const settings=document.getElementById("settings");
+
+let timezone="America/Toronto";
+
+let locationName="Toronto, Canada";
+
+let format="12";
 
 
 
-theme.onclick=()=>{
+document.getElementById("settingsBtn").onclick=()=>{
+
+settings.classList.toggle("show");
+
+};
+
+
+
+document.getElementById("themeBtn").onclick=()=>{
 
 card.classList.toggle("dark");
 
-theme.textContent =
+document.getElementById("themeBtn").textContent=
+
 card.classList.contains("dark") ? "☀" : "☾";
 
 };
 
 
 
+document.getElementById("save").onclick=()=>{
+
+
+let value=document.getElementById("place").value.split("|");
+
+
+timezone=value[0];
+
+locationName=value[1];
+
+
+format=document.getElementById("format").value;
+
+
+settings.classList.remove("show");
+
+
+updateClock();
+
+
+};
+
+
+
+
 function updateClock(){
 
 
-const now=new Date();
+let now=new Date();
 
 
-let hours=now.getHours();
 
-let minutes=now.getMinutes();
+let options={
+
+timeZone:timezone,
+
+hour:"numeric",
+
+minute:"numeric",
+
+hour12:format==="12"
+
+};
 
 
-let ampm=hours>=12 ? "PM":"AM";
+
+let time=new Intl.DateTimeFormat([],options)
+.format(now);
 
 
-hours=hours%12 || 12;
+
+let parts=time.match(/\d+|\w+/g);
 
 
-let time=
 
-String(hours).padStart(2,"0")+
+let hour=parts[0];
 
-String(minutes).padStart(2,"0");
+let minute=parts[1];
+
+let ampm=parts[2] || "";
+
+
+
+let display=String(hour).padStart(2,"0")+String(minute).padStart(2,"0");
 
 
 
@@ -371,7 +560,7 @@ String(minutes).padStart(2,"0");
 let box=document.getElementById(id);
 
 
-if(box.textContent!==time[i]){
+if(box.textContent!==display[i]){
 
 
 box.classList.remove("animate");
@@ -380,7 +569,7 @@ void box.offsetWidth;
 
 box.classList.add("animate");
 
-box.textContent=time[i];
+box.textContent=display[i];
 
 
 }
@@ -396,17 +585,21 @@ document.getElementById("ampm").textContent=ampm;
 
 document.getElementById("day").textContent=
 
-now.toLocaleDateString([],{
+new Intl.DateTimeFormat([],{
+
+timeZone:timezone,
 
 weekday:"long"
 
-});
+}).format(now);
 
 
 
 document.getElementById("date").textContent=
 
-now.toLocaleDateString([],{
+new Intl.DateTimeFormat([],{
+
+timeZone:timezone,
 
 month:"long",
 
@@ -414,23 +607,22 @@ day:"numeric",
 
 year:"numeric"
 
-});
+}).format(now);
+
+
+
+document.getElementById("location").textContent=
+
+"📍 "+locationName;
 
 
 }
 
 
+
 updateClock();
 
 setInterval(updateClock,1000);
-
-
-window.addEventListener("load", () => {
-
-    document.body.style.height =
-    document.querySelector(".card").offsetHeight + "px";
-
-});
 
 
 </script>
