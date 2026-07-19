@@ -2,111 +2,245 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Minimal Flip Clock</title>
+<title>Flip Clock Widget</title>
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
+
 <style>
 
-* {
-    box-sizing: border-box;
+:root {
+
+    --card-light: #FCFAF5;
+    --flip-light: #E9E2D6;
+    --text-light: #454540;
+    --muted-light: #7D786F;
+    --accent-light: #93A68B;
+    --border-light: #DDD5C8;
+
+
+    --card-dark: #252925;
+    --flip-dark: #363C36;
+    --text-dark: #F3EEE5;
+    --muted-dark: #B8B5AC;
+    --accent-dark: #A8B8A5;
+    --border-dark: #414840;
+
 }
 
-html, body {
 
-    margin: 0;
-    padding: 0;
+/* REMOVE WHITE BACKGROUND */
 
-    width: 100%;
-    height: 100%;
+html,
+body {
 
-    background: transparent;
+    margin:0;
+
+    padding:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:transparent;
 
 }
 
 
 body {
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display:flex;
 
-    font-family: Inter, sans-serif;
+    justify-content:center;
+
+    align-items:center;
+
+    font-family:Inter,sans-serif;
+
+}
+
+
+
+/* CARD */
+
+
+.clock-card {
+
+    width:280px;
+
+    padding:32px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    background:var(--card-light);
+
+    border:1px solid var(--border-light);
+
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.08);
+
+    transition:.4s ease;
+
+    position:relative;
 
 }
 
 
-.clock-container {
 
-    text-align: center;
+/* DARK MODE */
+
+
+.clock-card.dark {
+
+    background:var(--card-dark);
+
+    border-color:var(--border-dark);
 
 }
+
+
+
+.clock-card.dark .flip {
+
+    background:var(--flip-dark);
+
+    color:var(--text-dark);
+
+}
+
+
+
+.clock-card.dark .colon {
+
+    color:var(--accent-dark);
+
+}
+
+
+
+.clock-card.dark .date {
+
+    color:var(--muted-dark);
+
+}
+
+
+
+.clock-card.dark .day {
+
+    color:var(--accent-dark);
+
+}
+
+
+
+.clock-card.dark .toggle {
+
+    color:var(--text-dark);
+
+}
+
+
+
+/* TOGGLE */
+
+
+.toggle {
+
+    position:absolute;
+
+    top:12px;
+
+    right:15px;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    color:var(--text-light);
+
+}
+
 
 
 /* CLOCK */
 
+
 .clock {
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    justify-content:center;
 
-    justify-content: center;
+    align-items:center;
 
-    gap: 5px;
+    gap:5px;
+
+    margin-top:10px;
 
 }
+
 
 
 .flip {
 
-    width: 48px;
+    width:48px;
 
-    height: 60px;
+    height:62px;
 
-    background: #E9E2D6;
+    border-radius:10px;
 
-    border-radius: 10px;
+    background:var(--flip-light);
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    justify-content: center;
+    justify-content:center;
 
-    position: relative;
+    position:relative;
 
-    overflow: hidden;
+    overflow:hidden;
 
-    font-family: "DM Serif Display", serif;
+    font-family:"DM Serif Display",serif;
 
-    font-size: 38px;
+    font-size:38px;
 
-    color: #454540;
+    color:var(--text-light);
 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow:
+
+    inset 0 -1px rgba(0,0,0,.08);
 
 }
 
 
+
 .flip::after {
 
-    content: "";
+    content:"";
 
-    position: absolute;
+    position:absolute;
 
-    top: 50%;
+    top:50%;
 
-    left: 0;
+    left:0;
 
-    width: 100%;
+    height:1px;
 
-    height: 1px;
+    width:100%;
 
-    background: #D0C7B8;
+    background:rgba(0,0,0,.12);
 
 }
 
@@ -114,33 +248,35 @@ body {
 
 .flip.animate {
 
-    animation: flipAnimation .35s ease;
+    animation:flip .35s ease;
 
 }
 
 
 
-@keyframes flipAnimation {
-
-    0% {
-
-        transform: rotateX(0deg);
-
-    }
+@keyframes flip {
 
 
-    50% {
+0% {
 
-        transform: rotateX(-90deg);
+transform:rotateX(0deg);
 
-    }
+}
 
 
-    100% {
+50% {
 
-        transform: rotateX(0deg);
+transform:rotateX(-90deg);
 
-    }
+}
+
+
+100% {
+
+transform:rotateX(0deg);
+
+}
+
 
 }
 
@@ -148,48 +284,52 @@ body {
 
 .colon {
 
-    font-family: "DM Serif Display", serif;
+    font-family:"DM Serif Display",serif;
 
-    font-size: 36px;
+    font-size:34px;
 
-    color: #92A58A;
+    color:var(--accent-light);
 
 }
+
 
 
 .ampm {
 
-    margin-left: 8px;
+    font-size:13px;
 
-    font-size: 14px;
+    margin-left:6px;
 
-    color: #73846D;
+    color:var(--accent-light);
 
-    font-weight: 500;
+    font-weight:500;
 
 }
+
 
 
 /* DATE */
 
+
 .date {
 
-    margin-top: 18px;
+    margin-top:22px;
 
-    color: #7D786F;
+    color:var(--muted-light);
 
-    font-size: 14px;
+    font-size:14px;
 
-    line-height: 1.6;
+    line-height:1.6;
 
 }
 
 
+
 .day {
 
-    color: #64735F;
+    font-weight:500;
 
-    font-weight: 500;
+    color:var(--accent-light);
 
 }
 
@@ -200,10 +340,16 @@ body {
 </head>
 
 
+
 <body>
 
 
-<div class="clock-container">
+<div class="clock-card" id="card">
+
+
+<button class="toggle" id="toggle">
+☾
+</button>
 
 
 <div class="clock">
@@ -222,7 +368,9 @@ body {
 <div class="flip" id="m2">0</div>
 
 
-<div class="ampm" id="ampm"></div>
+<div class="ampm" id="ampm">
+AM
+</div>
 
 
 </div>
@@ -233,7 +381,7 @@ body {
 
 <div class="day" id="day"></div>
 
-<div id="date"></div>
+<div id="fullDate"></div>
 
 </div>
 
@@ -246,88 +394,142 @@ body {
 <script>
 
 
-function updateClock() {
+const card = document.getElementById("card");
 
-
-    const now = new Date();
-
-
-    let hours = now.getHours();
-
-    let minutes = now.getMinutes();
-
-
-    let ampm = hours >= 12 ? "PM" : "AM";
-
-
-    hours = hours % 12 || 12;
-
-
-    let time = 
-
-        String(hours).padStart(2,"0") +
-
-        String(minutes).padStart(2,"0");
+const toggle = document.getElementById("toggle");
 
 
 
-    const boxes = ["h1","h2","m1","m2"];
+// LOAD SAVED THEME
+
+
+if(localStorage.getItem("clock-theme") === "dark") {
+
+    card.classList.add("dark");
+
+    toggle.textContent="☀";
+
+}
 
 
 
-    boxes.forEach((id,index)=>{
+// TOGGLE THEME
 
 
-        const element = document.getElementById(id);
+toggle.onclick=function(){
 
 
-        if(element.textContent !== time[index]) {
+card.classList.toggle("dark");
 
 
-            element.classList.remove("animate");
+let dark = card.classList.contains("dark");
 
 
-            void element.offsetWidth;
+toggle.textContent = dark ? "☀" : "☾";
 
 
-            element.classList.add("animate");
+localStorage.setItem(
+"clock-theme",
+dark ? "dark" : "light"
+);
 
 
-            element.textContent = time[index];
-
-
-        }
-
-
-    });
+};
 
 
 
-    document.getElementById("ampm").textContent = ampm;
+
+
+function updateClock(){
+
+
+const now=new Date();
+
+
+let hours=now.getHours();
+
+let minutes=now.getMinutes();
+
+
+let ampm=hours>=12 ? "PM":"AM";
+
+
+hours=hours%12 || 12;
 
 
 
-    document.getElementById("day").textContent = 
+let time=
 
-        now.toLocaleDateString([], {
+String(hours).padStart(2,"0")
 
-            weekday:"long"
++
 
-        });
+String(minutes).padStart(2,"0");
 
 
 
-    document.getElementById("date").textContent =
+let ids=[
+"h1",
+"h2",
+"m1",
+"m2"
+];
 
-        now.toLocaleDateString([], {
 
-            month:"long",
 
-            day:"numeric",
+ids.forEach((id,index)=>{
 
-            year:"numeric"
 
-        });
+let element=document.getElementById(id);
+
+
+if(element.textContent !== time[index]){
+
+
+element.classList.remove("animate");
+
+
+void element.offsetWidth;
+
+
+element.classList.add("animate");
+
+
+element.textContent=time[index];
+
+
+}
+
+
+});
+
+
+
+document.getElementById("ampm").textContent=ampm;
+
+
+
+document.getElementById("day").textContent=
+
+now.toLocaleDateString([],{
+
+weekday:"long"
+
+});
+
+
+
+document.getElementById("fullDate").textContent=
+
+now.toLocaleDateString([],{
+
+month:"long",
+
+day:"numeric",
+
+year:"numeric"
+
+});
 
 
 
