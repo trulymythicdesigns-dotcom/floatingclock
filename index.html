@@ -11,17 +11,26 @@
 
 <style>
 
-html, body {
-    margin:0;
-    padding:0;
+html {
     background:transparent !important;
-    overflow:hidden;
 }
 
 body {
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
+
+    margin:0;
+
+    padding:0;
+
+    width:max-content;
+
+    height:max-content;
+
+    min-height:0;
+
+    background:transparent !important;
+
+    overflow:hidden;
+
     font-family:Inter,sans-serif;
 }
 
@@ -30,7 +39,7 @@ body {
 
 .card {
 
-    margin-top:5px;
+    margin-top:0;
 
     width:270px;
 
@@ -249,6 +258,13 @@ button {
 
 }
 
+* {
+    scrollbar-width:none;
+}
+
+::-webkit-scrollbar {
+    display:none;
+}
 
 </style>
 
@@ -407,6 +423,14 @@ year:"numeric"
 updateClock();
 
 setInterval(updateClock,1000);
+
+
+window.addEventListener("load", () => {
+
+    document.body.style.height =
+    document.querySelector(".card").offsetHeight + "px";
+
+});
 
 
 </script>
